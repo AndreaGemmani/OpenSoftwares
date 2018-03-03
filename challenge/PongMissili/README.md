@@ -6,10 +6,10 @@ Videogame 1vs1 con missili ed esplosioni e powerup e cose
 Infliggere danni all'aversario colpendolo con missili
 
 # Come giocare:
-Giocatore di sinistra muove con W/S, spara con D ed usa powerup con A
-Giocatore di destra muove con frecce su e giù, spara con frecia sinistra ed usa powerup con freccia destra
+- Giocatore di sinistra muove con W/S, spara con D ed usa powerup con A
+- Giocatore di destra muove con frecce su e giù, spara con frecia sinistra ed usa powerup con freccia destra
 
-Menù di pausa con SPACE (non ancora available)
+- Menù di pausa con SPACE (non ancora available)
 
 # Setup:
 - Installare i file p5.js, p5.dom.js e p5.sound.js in una cartella sul desktopp chiamata "libraries"
