@@ -1,6 +1,6 @@
 # Pong con missili
 
-Videogame 1vs1 con missili ed esplosioni e cose 
+Videogame 1vs1 con missili ed esplosioni e powerup e cose 
 
 # Scopo:
 Infliggere danni all'aversario colpendolo con missili
@@ -11,6 +11,11 @@ Giocatore di destra muove con frecce su e giù, spara con frecia sinistra ed usa
 
 Menù di pausa con SPACE (non ancora available)
 
+# Setup:
+- Installare i file p5.js, p5.dom.js e p5.sound.js in una cartella sul desktopp chiamata "libraries"
+- Installare tutti i file di questa pagina in una seconda cartella lasciando i nomi invariati, infine cliccare su index.html
+- Se tutto va come deve il gioco dovrebbe aprirsi in una pagina del browser
+- In caso la pagina aperta fosse vuota o il gioco si bloccasse, aprire nella pagina "Sviluppo" -> "Console errori" o contattare me :)
 
 
 versione beta 0.2.0 
