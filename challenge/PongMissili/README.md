@@ -1,8 +1,8 @@
-#Pong con missili
+# Pong con missili
 
 Videogame 1vs1 con missili ed esplosioni e cose 
 
-#Scopo:
+# Scopo:
 Infliggere danni all'aversario colpendolo con missili
 
 # Come giocare:
