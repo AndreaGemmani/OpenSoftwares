@@ -7,7 +7,7 @@ Infliggere danni all'aversario colpendolo con missili
 
 # Come giocare:
 - Giocatore di sinistra muove con W/S, spara con D ed usa powerup con A
-- Giocatore di destra muove con frecce su e giù, spara con frecia sinistra ed usa powerup con freccia destra
+- Giocatore di destra muove con frecce su e giù, spara con freccia sinistra ed usa powerup con freccia destra
 
 - Menù di pausa con SPACE (non ancora available)
 
