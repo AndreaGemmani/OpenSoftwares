@@ -180,13 +180,16 @@ class Partita {
 			this.creaG();
 			this.n = 0;
 		}
-		this.sposta();
-		this.spara();
 
-		this.colpitoPow();
+		if( ! this.finePartita() ) {
+			this.sposta();
+			this.spara();
 
-		this.ricrea();
-		this.creaPowerUp();
+			this.colpitoPow();
+
+			this.ricrea();
+			this.creaPowerUp();
+		}
 
 		// disegno
 		rectMode(RADIUS);
@@ -262,11 +265,6 @@ class Partita {
 		// if(this.pos.y < this.dimY) this.pos.y = this.dimY;
 	}
 
-	// goal() {
-	// 	for
-	// 		return 1
-
-	// }
 
 	pausa() {
 
@@ -298,6 +296,25 @@ class Partita {
 		// fill(0,255,0);
 		// text(this.vitaG,width/2 + 200,50);
 		pop();
+	}
+
+
+	finePartita() {
+		if(this.vitaB <= 0) {
+			textAlign(CENTER,CENTER);
+			textSize(width/20);
+			text("Mr. Verde ha vittorieee", width/2, height/2);
+			return 1;
+		}
+		if(this.vitaG <= 0) {
+			textAlign(CENTER,CENTER);
+			textSize(width/20);
+			text("Il blu ha vinto vittorieee", width/2, height/2);
+			return 1;
+		}
+
+		// potrei mettere qui un return 1 / 0 / -1 in base a chi ha finito la vita,
+		//  e poi usarlo per i text  
 	}
 
 
