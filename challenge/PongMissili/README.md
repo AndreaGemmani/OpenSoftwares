@@ -15,7 +15,14 @@ Infliggere danni all'avversario colpendolo con missili
 - Installare i file p5.js, p5.dom.js e p5.sound.js in una cartella sul desktopp chiamata "libraries"
 - Installare tutti i file di questa pagina (il README non è neessario) in una seconda cartella lasciando i nomi invariati, infine cliccare su index.html
 - Se tutto va come deve il gioco dovrebbe aprirsi in una pagina del browser
-- In caso la pagina aperta fosse vuota o il gioco si bloccasse, aprire nella pagina "Sviluppo" -> "Console errori" o contattare me :)
+- In caso la pagina aperta fosse vuota o il gioco si bloccasse, aprire nella pagina: 
+
+Chrome: [menu in alto a destra] -> Altri Strumenti -> Strumenti per sviluppatori 
+Safari: Sviluppo -> Mostra Console errori 
+Altri browser (coming soon)
+
+e riportare gli errori descritti a me o con una pull request o nuova branch o fork su GitHub
+
 
 
 versione beta 0.2.0 
