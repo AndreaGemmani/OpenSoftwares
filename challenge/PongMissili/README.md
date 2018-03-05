@@ -20,7 +20,9 @@ Ridurre a zero la vita dell'avversario colpendolo con missili ed evitando i suoi
 Chrome: [menu in alto a destra] -> Altri Strumenti -> Strumenti per sviluppatori
 
 Safari: Sviluppo -> Mostra Console errori 
+
 Altri browser (coming soon)
+
 
 e riportare gli errori descritti a me o con una pull request o nuova branch o fork su GitHub
 
