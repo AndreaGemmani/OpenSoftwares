@@ -28,10 +28,10 @@ e riportare gli errori descritti a me o con una pull request o nuova branch o fo
 
 
 
-versione beta 0.2.1
+*versione beta 0.2.1
 
 aggiunto finePartita() in partita.js
 
-versione beta 0.2.0 
+*versione beta 0.2.0 
 
 aggiunto index2.html per uniformare ricerca librerie su windows e MacOS
