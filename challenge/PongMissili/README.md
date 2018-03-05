@@ -17,7 +17,7 @@ Ridurre a zero la vita dell'avversario colpendolo con missili ed evitando i suoi
 - Se tutto va come deve il gioco dovrebbe aprirsi in una pagina del browser
 - In caso la pagina aperta fosse vuota o il gioco si bloccasse, aprire nella pagina in base al browser utilizzato: 
 
-Chrome: [menu in alto a destra] -> Altri Strumenti -> Strumenti per sviluppatori 
+Chrome: [menu in alto a destra] -> Altri Strumenti -> Strumenti per sviluppatori
 Safari: Sviluppo -> Mostra Console errori 
 Altri browser (coming soon)
 
