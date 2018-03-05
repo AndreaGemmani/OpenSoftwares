@@ -3,7 +3,7 @@
 Videogame 1vs1 con missili ed esplosioni e powerup e cose 
 
 # Scopo:
-Infliggere danni all'aversario colpendolo con missili
+Infliggere danni all'avversario colpendolo con missili
 
 # Come giocare:
 - Giocatore di sinistra muove con W/S, spara con D ed usa powerup con A
