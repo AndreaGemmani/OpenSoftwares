@@ -15,6 +15,10 @@ class Attaccante {
 		this.vMax = vMax || 10;
 		// this.vMax = 1;
 
+		this.colpi = [];
+
+		this.n18 = 1; // per entrare in scelta frame per colpi
+
 
 		this.dim = 10 + (this.peso * 2); // texture
 
@@ -81,6 +85,10 @@ class Attaccante {
 	}
 
 	colpisci() {
+		if(this.n18) {
+			this.fDiv = frameCount % 20;
+			this.n18 = 0;
+		}
 		// console.log("yey");
 		// non dovrebbe esserci bisogno di ricontrollare le distanze qui
 		// if( p5.Vector.sub(this.pos,this.obbiettivo.pos).mag < this.visione ) {
@@ -88,10 +96,23 @@ class Attaccante {
 		// console.log("yay");
 		// }
 
-		this.obbiettivo.vitaRim -= this.forza / 10; // woohoooo
+		// poi modificherò, particella che simula colpo
+		if(frameCount % 20 == this.fDiv) this.colpi.push(new Colpo(this.pos.x,this.pos.y,this.obbiettivo.pos.x,this.obbiettivo.pos.y));
+
+		for(let i = 0; i < this.colpi.length; i++) {
+			if(this.colpi[i].distanza < 5) {
+				console.log("colpito");
+				this.obbiettivo.vitaRim -= this.forza; // colpisco quando arriva il colpo
+				this.colpi.splice(i,1);
+			}
+			// if(this.colpi[i].distanza > 300) this.colpi.splice(i,1);
+		}
+
+		// this.obbiettivo.vitaRim -= this.forza / 10; // woohoooo
 		if(! this.obbiettivo || this.obbiettivo.vitaRim < 0) {
 			// c.arrObb.splice(this.nVicino,1);
 			this.scegliObb();
+			this.colpi.splice(0,1000);
 		}
 	}
 
@@ -109,6 +130,9 @@ class Attaccante {
 			fill(255,0,0);
 			text(this.tipo,this.pos.x,this.pos.y); // scrivo numero per vedere e controllare
 		pop();
+		for(let i = 0; i < this.colpi.length; i++) {
+			this.colpi[i].mostra();
+		}
 	}
 
 
@@ -118,16 +142,36 @@ class Attaccante {
 
 }
 
+// mi vanno a puttane i pg con i colpi, fuggono a cazzo
+class Colpo {
 
-// class Barbaro {
+	constructor(posAx,posAy,posOx,posOy) {
+		this.pos = createVector(posAx,posAy); // posizione iniziale colpo
+		this.posO = createVector(posOx,posOy);
+		this.desired = p5.Vector.sub(this.posO,this.pos); // vettore distanza obb
+		this.vMax = 3; // velocità colpo
+		this.desired.setMag(this.vMax); // vettore distanza diventa vettore spostamento
 
-// 	constructor() {
+		this.distanza = p5.Vector.dist(this.posO,this.pos); // mi serve per togliere di mezzo quelli arrivati
+
+		this.dim = 5;
+	}
+
+	mostra() {
+		push();
+			this.pos.add(this.desired); // il colpo si avvicina al bersaglio (che è fermo per ora)
+			this.distanza = p5.Vector.dist(this.posO,this.pos); // aggiorno la distanza rimasta
+			// translate(this.pos.x,this.pos.y);
+			fill(200,200,50);
+			stroke(200,200,50);
+			ellipse(this.pos.x,this.pos.y,this.dim);
+			// console.log(this.distanza);
+			// console.log("yay");
+		pop();
+	}
 
 
-// 	}
-
-
-// }
+}
 
 
 

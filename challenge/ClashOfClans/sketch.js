@@ -37,7 +37,9 @@ function setup() {
 
 	c = new Campo(28);
 	// a = new Attacco(0,0,4,0,3);
-	a = new Attacco(6,8,4,5,3);
+	// a = new Attacco(0,2,0,0,0);
+	// a = new Attacco(0,20,0,0,0);
+	a = new Attacco(6,8,4,3,5);
 
 
 }
