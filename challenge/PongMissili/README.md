@@ -35,6 +35,7 @@ se non si vogliono scaricare le librerie p5.js,p5.sound e p5.dom si può scarica
 
 
 _versione 0.3.0_
+
 aggiunto IndexOnline.html per non scaricare le librerie p5
 
 _versione beta 0.2.1_
