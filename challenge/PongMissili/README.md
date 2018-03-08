@@ -12,8 +12,10 @@ Ridurre a zero la vita dell'avversario colpendolo con missili ed evitando i suoi
 - Menù di pausa con SPACE (non ancora available)
 
 # Setup:
-- Installare i file p5.js, p5.dom.js e p5.sound.js in una cartella sul desktopp chiamata "libraries"
-- Installare tutti i file di questa pagina (il README non è neessario) in una seconda cartella lasciando i nomi invariati, infine cliccare su index.html
+- Scaricare tutti i fle .js ed inserirli in una cartella
+-Scaricare** p5.js,p5.sound e p5.dom, inserirle in una sub-cartella rinominandola libraries
+-Scaricare, salvare nella cartella principale ed aprire index.html
+
 - Se tutto va come deve il gioco dovrebbe aprirsi in una pagina del browser
 - In caso la pagina aperta fosse vuota o il gioco si bloccasse, aprire nella pagina in base al browser utilizzato: 
 
@@ -23,15 +25,22 @@ Safari: Sviluppo -> Mostra Console errori
 
 Altri browser (coming soon)
 
-
 e riportare gli errori descritti a me o con una pull request o nuova branch o fork su GitHub
 
 
+** 
+se non si vogliono scaricare le librerie p5.js,p5.sound e p5.dom si può scaricare indexOnline.html ed accedere al gioco da lì, in questo modo ogni volta che il gioco viene ricaricato le tre librerie sopra citate verranno scaricate da una repository online, questo implica che è necessaria una connessione internet ad ogni reload e si dovranno attendere alcuni secondi mentre queste vengono scaricate
+ 
 
-*versione beta 0.2.1*
+
+
+_versione 0.3.0_
+aggiunto IndexOnline.html per non scaricare le librerie p5
+
+_versione beta 0.2.1_
 
 aggiunto finePartita() in partita.js
 
-*versione beta 0.2.0*
+_versione beta 0.2.0_
 
 aggiunto index2.html per uniformare ricerca librerie su windows e MacOS
