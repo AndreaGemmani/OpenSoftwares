@@ -13,7 +13,7 @@ class Scacchiera {
 	// x va verso dx  da 1 a 8 
 	// y va verso giù da 1 a 8
 
-	// bianchi 0, neri 1
+	// bianchi 0, neri 1       => turno true è nero
 	// pezzi da 1 a 6:	pedone  alfiere  cavallo  torre  re  regina
 
 	constructor(dim) {
@@ -21,7 +21,14 @@ class Scacchiera {
 		this.arrBian = [];
 		this.arrNeri = [];
 
+		this.arrPosNeri = [];
+		this.arrPosBian = [];
+
+		this.turno = 0; // a chi tocca muovere 
+
 		this.caselleVerdi = [];
+		this.caselleRosse = [];
+		this.pezzoAttuale = [];
 
 		this.dim = dim;
 
@@ -32,36 +39,11 @@ class Scacchiera {
 	}
 
 	loaddaImmagini() {
-		// this.loadFinito = 0;
-		// this.PN = loadImage('src=../../pezziScacchi/pedoneNero.ico',this.loadFinito++);
-		// this.PB = loadImage('src=../../pedoneBianco.ico',this.loadFinito++);
-		// this.AN = loadImage("src=../../alfiereNero.ico",this.loadFinito++);
-		// this.AB = loadImage("src=../../alfiereBianco.ico",this.loadFinito++);
-		// this.TN = loadImage("src=../../torreNera1.ico",this.loadFinito++); 
-		// this.TB = loadImage("src=../../torreBianca.ico",this.loadFinito++);
-		// this.CN = loadImage("src=../../cavalloNero1.ico",this.loadFinito++);
-		// this.CB = loadImage("src=../../cavalloBianco.ico",this.loadFinito++);
-		// this.RN = loadImage("src=../../reNero.ico",this.loadFinito++); 
-		// this.RB = loadImage("src=../../reBianco.ico",this.loadFinito++);
-		// this.RgN = loadImage("src=../../reginaNera.ico",this.loadFinito++);
-		// this.RgB = loadImage("src=../../reginaBianca.ico",this.loadFinito++);
-
-		// this.PN = loadImage('src=../../pezziScacchi/pedoneNero.ico'); 
-		// this.PB = loadImage('src=../../pedoneBianco.ico');
-		// this.AN = loadImage("src=../../alfiereNero.ico");
-		// this.AB = loadImage("src=../../alfiereBianco.ico");
-		// this.TN = loadImage("src=../../torreNera1.ico"); 
-		// this.TB = loadImage("src=../../torreBianca.ico");
-		// this.CN = loadImage("src=../../cavalloNero1.ico");
-		// this.CB = loadImage("src=../../cavalloBianco.ico");
-		// this.RN = loadImage("src=../../reNero.ico"); 
-		// this.RB = loadImage("src=../../reBianco.ico");
-		// this.RgN = loadImage("src=../../reginaNera.ico");
-		// this.RgB = loadImage("src=../../reginaBianca.ico");
-
 	}
 
-	creaInizio() {
+	creaInizio() { // creo una normale partita 
+		this.arrBian = [];
+		this.arrNeri = [];
 		// pedoni
 		for(let p = 0; p < 8; p++) {
 			this.arrNeri.push(new Pezzo(1,p+1,2,1));
@@ -87,14 +69,38 @@ class Scacchiera {
 		this.arrNeri.push(new Pezzo(6,4,1,1));
 		this.arrBian.push(new Pezzo(5,5,8,0));
 		this.arrBian.push(new Pezzo(6,4,8,0));
+
+		// this.calcolaPosPezzi();
 	}
+
+	calcolaPosPezzi() {
+		this.arrPosBian = [];
+		this.arrPosNeri = [];
+		for(let b = 0; b < this.arrBian.length; b++) {
+			this.arrPosBian.push({j:this.arrBian[b].x,k:this.arrBian[b].y,n:this.arrBian[b].nome});
+		}
+
+		for(let n = 0; n < this.arrNeri.length; n++) {
+			this.arrPosNeri.push({j:this.arrNeri[n].x,k:this.arrNeri[n].y,n:this.arrNeri[n].nome});
+		}
+		// ad ogni spostamento ricontrollo tutte le caselle di mangio e di spostamento, molto pesante
+		// e migliorabile controllando solo cose entangled ma difficile da trovare con sicurezzs
+		for(let b = 0; b < this.arrBian.length; b++) {
+			this.arrBian[b].possibili();
+		}
+		for(let n = 0; n < this.arrNeri.length; n++) {
+			this.arrNeri[n].possibili();
+		}
+	}
+
+	// this.calcolaPosPezzi();
 
 	mostra() {
 		this.mostraScacchiera();
 		for(let n = 0; n < this.arrNeri.length; n++) {
 			this.arrNeri[n].mostra();
 		}
-		for(let b = 0; b < this.arrNeri.length; b++) {
+		for(let b = 0; b < this.arrBian.length; b++) {
 			this.arrBian[b].mostra();
 		}
 	}
@@ -102,6 +108,19 @@ class Scacchiera {
 	coloraDiVerde(arr) {
 		if(arr == 0) this.caselleVerdi = [];
 		this.caselleVerdi = arr;
+	}
+	coloraDiRosso(arr) {
+		if(arr == 0) this.caselleRosse = [];
+		this.caselleRosse = arr;
+	}
+	coloraQuesto(x,y) {
+		this.pezzoAttuale = {x:x,y:y};
+	}
+	stopMostraPossibili() {
+		if (this.caselleVerdi.length != 0 && this.caselleRosse.length != 0) console.log("Nessuna casella da mostrare");
+		this.caselleVerdi = [];
+		this.caselleRosse = [];
+		this.pezzoAttuale = [];
 	}
 
 	mostraScacchiera() {
@@ -112,14 +131,34 @@ class Scacchiera {
 			for(let y = 1; y <= 8; y++) {
 				for(let x = 1; x <= 8; x++) {
 					fill((x+y+1) %2 * 255); // alterno bianco e nero
+					if(x == this.pezzoAttuale.x && y == this.pezzoAttuale.y) fill(0,0,100);
 					// if(this.coloraDiVerde)
 					rect(x*this.dim - this.dim/2,y*this.dim -this.dim/2,this.dim,this.dim);
 				}
 			}
-			for(let v = 0; v < this.caselleVerdi.length; v++) { // metto verde su quelli possibili
-				fill(0,255,0,80);
+			// mostro le prossime caselle possibili in verde
+			for(let v = 0; v < this.caselleVerdi.length; v++) {
+				// fill(0,255,0,90); // la trasparenza potrebbe costare cpu
+				fill(0,150,0);
 				rect(this.caselleVerdi[v].j*this.dim - this.dim/2,this.caselleVerdi[v].k*this.dim -this.dim/2,this.dim,this.dim);
 			}
+			for(let r = 0; r < this.caselleRosse.length; r++) {
+				// fill(0,255,0,90); // la trasparenza potrebbe costare cpu
+				fill(200,0,0);
+				rect(this.caselleRosse[r].j*this.dim - this.dim/2,this.caselleRosse[r].k*this.dim -this.dim/2,this.dim,this.dim);
+			}
+
+			// // mostro caselle occupate
+			// for(let v = 0; v < this.arrPosBian.length; v++) { // metto verde su quelli possibili
+			// 	// fill(0,255,0,90); // la trasparenza potrebbe costare cpu
+			// 	fill(0,0,150);
+			// 	rect(this.arrPosBian[v].j*this.dim - this.dim/2,this.arrPosBian[v].k*this.dim -this.dim/2,this.dim,this.dim);
+			// }
+			// for(let v = 0; v < this.arrPosNeri.length; v++) { // metto verde su quelli possibili
+			// 	// fill(0,255,0,90); // la trasparenza potrebbe costare cpu
+			// 	fill(200,200,0);
+			// 	rect(this.arrPosNeri[v].j*this.dim - this.dim/2,this.arrPosNeri[v].k*this.dim -this.dim/2,this.dim,this.dim);
+			// }
 		pop();
 	}
 
@@ -144,6 +183,7 @@ class Pezzo {
 
 		this.mossePossibili = [];
 		this.prossimeCaselle = [];
+		this.mangiabili = [];
 
 		switch(this.tipo) {
 			case 1: if(this.colore) {	
@@ -162,7 +202,7 @@ class Pezzo {
 						break;
 			case 3: if(this.colore) {
 						this.img = CN; 
-						this.nome = "";
+						this.nome = "Cavallo Nero";
 						break;	}
 						this.img = CB; 
 						this.nome = "Cavallo Bianco";
@@ -190,7 +230,7 @@ class Pezzo {
 						break;
 		} // switch
 
-		this.possibili();
+		// this.possibili();
 	}
 
 	mostra() {
@@ -209,53 +249,67 @@ class Pezzo {
 	}
 
 	mostraPossibili() {
-		s.coloraDiVerde(this.prossimeCaselle[0]);
-	}
-	stopMostraPossibili() {
-		s.coloraDiVerde(0);
+		console.log("Caselle " + this.nome + " ");
+		s.coloraDiVerde(this.prossimeCaselle);
+		s.coloraDiRosso(this.mangiabili);
+		s.coloraQuesto(this.x,this.y);
 	}
 
 	possibili() {
-		this.prossimeCaselle = [];	// azzero l'array
+		this.prossimeCaselle = [];	// azzero gli array per poi refillarli
+		this.mangiabili = [];
 		if(this.tipo == 1) {
-			this.prossimeCaselle.push(this.movPed(this.x,this.y));
+			this.prossimeCaselle = this.movPed(this.x,this.y);
 		}
 		if(this.tipo == 2) {
-			this.prossimeCaselle.push(this.movAlf(this.x,this.y));
+			this.prossimeCaselle = this.movAlf(this.x,this.y);
 		}
 		if(this.tipo == 3) { // !!! no 3
-			this.prossimeCaselle.push(this.movCav(this.x,this.y));
+			this.prossimeCaselle = this.movCav(this.x,this.y);
 		}
 		if(this.tipo == 4) { // !!! no 3
-			this.prossimeCaselle.push(this.movTorre(this.x,this.y));
+			this.prossimeCaselle = this.movTorre(this.x,this.y);
 		}
 		if(this.tipo == 5) {
-			this.prossimeCaselle.push(this.movRe(this.x,this.y));
+			this.prossimeCaselle = this.movRe(this.x,this.y);
 		}
 		if(this.tipo == 6) { // regina
-			this.prossimeCaselle.push(this.movAlf(this.x,this.y));
-			this.prossimeCaselle.push(this.movTorre(this.x,this.y));
+			// this.prossimeCaselle = this.movAlf(this.x,this.y);
+			// this.prossimeCaselle = this.movTorre(this.x,this.y);	
+			this.prossimeCaselle = this.movReg(this.x,this.y);
 		}
 
 		// handlo eventuali errori per uscita dalla scacchiera e non-moves
-		this.prossimeCaselle[0] = this.prossimeCaselle[0].filter(z => (z.j > 0 && z.j < 9 && z.k > 0 && z.k < 9));
-		this.prossimeCaselle[0] = this.prossimeCaselle[0].filter(z => (z.j != this.x || z.k != this.y));
+		this.prossimeCaselle = this.prossimeCaselle.filter(z => (z.j > 0 && z.j < 9 && z.k > 0 && z.k < 9));
+		this.prossimeCaselle = this.prossimeCaselle.filter(z => (z.j != this.x || z.k != this.y));
 	}
 
 
-	movPed(x,y) {
+	movPed(x,y) { // pedone mouve non-simmetrico quindi divido bianchi e neri
 		var daRit = [];
-		if(this.colore) {
+		if(this.colore) { // se nero
 			if(! this.mossoPrimaVolta) { // prima mossa doppia
 				daRit.push({j:x,k:y+2});
 			}
 			daRit.push({j:x,k:y+1});
+
+			// molto ripetitiva, probabilmente migliorabile.:
+			// controllo se nelle caselle di mangio esistono pezzi avversari
+			let c = s.arrPosBian.filter(z => (z.j == x+1 && z.k == y+1));
+			if(c.length != 0) this.mangiabili.push(s.arrPosBian[ s.arrPosBian.indexOf(c[0]) ] );
+			let d = s.arrPosBian.filter(z => (z.j == x-1 && z.k == y+1));
+			if(d.length != 0) this.mangiabili.push(s.arrPosBian[ s.arrPosBian.indexOf(d[0]) ] );
 		}
-		else {
+		else { // se bianco
 			if(! this.mossoPrimaVolta) { // prima mossa doppia
 				daRit.push({j:x,k:y-2});
 			}
 			daRit.push({j:x,k:y-1});
+
+			let c = s.arrPosNeri.filter(z => (z.j == x+1 && z.k == y-1));
+			if(c.length != 0) this.mangiabili.push(s.arrPosNeri[ s.arrPosNeri.indexOf(c[0]) ] );
+			let d = s.arrPosNeri.filter(z => (z.j == x-1 && z.k == y-1));
+			if(d.length != 0) this.mangiabili.push(s.arrPosNeri[ s.arrPosNeri.indexOf(d[0]) ] );
 		}
 		return daRit;
 	}
@@ -313,22 +367,57 @@ class Pezzo {
 		}
 		return daRit;
 	}
+	movReg(x,y) { // x + y ? % x+y !!! && x-y
+		var daRit = [];
+		var diag1 = x + y;
+		var diag2 = x - y;
+
+		for(let k = 1; k <= 8; k++) {
+			for(let j = 1; j <= 8; j++) {
+				if(j != x && k != y) {
+					if(j+k == diag1) { // se non va rimettere:     (!( (j+k) % diag1))
+						daRit.push({j,k});
+					}
+					if(j-k == diag2) {
+						daRit.push({j,k});
+					}
+				}
+			}
+		}
+		for(let m = 1; m <= 8; m++) {
+			if(m != x) {
+				daRit.push({j:m,k:y});
+			}
+		}
+		for(let m = 1; m <= 8; m++) {
+			if(m != y) {
+				daRit.push({j:x,k:m});
+			}
+		}
+		return daRit;
+	}
 
 
 	sposta(nX,nY) {
 		if(nX > 0 && nX < 9 && nY > 0 && nY < 9) {
-			if(true) { // controllare se ci sono pezzi sulla casella di arrivo
-				if(this.prossimeCaselle[0].filter(x => (x.j == nX && x.k == nY)).length != 0) {
+			if(s.turno == this.colore) { // controllo turno 
+				if(this.prossimeCaselle.filter(x => (x.j == nX && x.k == nY)).length != 0) {
 					// sono orgoglioso di questa funzione
-					// this.prossimeCaselle[0].filter(x => this.primoFiltro(x,nX,nY));
+					// this.prossimeCaselle.filter(x => this.primoFiltro(x,nX,nY));
 					this.x = nX;
 					this.y = nY;
 					this.mossoPrimaVolta = true;
-					this.stopMostraPossibili();
-					this.possibili();
+					s.calcolaPosPezzi();
+					// this.possibili(); // c'è già in calcolaPosPezzi()
+					s.turno = ! s.turno; // cambio turno dopo ogni mossa 
+					console.log(this.nome + ( (this.tipo == 4 || this.tipo == 6) ? " mossa in " : " mosso in " ) + this.x + "," + this.y);
+					s.stopMostraPossibili();
 				}
+				else console.log("Mossa non valida!");
 			}
+			else console.log("Turno del giocatore " + (s.turno ? "nero" : "bianco") + "!");
 		}
+		else console.log("Mossa non valida! (OutOfCanvas)");
 	}
 
 
