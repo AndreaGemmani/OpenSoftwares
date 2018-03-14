@@ -34,7 +34,9 @@ class Scacchiera {
 
 		// this.loaddaImmagini();
 		// if(this.loadFinito == 12)
+
 			this.creaInizio();
+			// this.altreMappe(1);
 
 	}
 
@@ -71,6 +73,16 @@ class Scacchiera {
 		this.arrBian.push(new Pezzo(6,4,8,0));
 
 		// this.calcolaPosPezzi();
+	}
+
+	altreMappe(n) {
+		switch(n) {
+			case(1): // due cavalli a centro mappa 
+			this.arrBian.push(new Pezzo(3,5,3,0));
+			this.arrNeri.push(new Pezzo(3,4,5,1));
+			break;
+			default: console.log("Nessuna mappa-scacchiera compatibile");
+		}
 	}
 
 	calcolaPosPezzi() {
@@ -334,14 +346,74 @@ class Pezzo {
 	}
 	movCav(j,k) { // potrei renderlo con x e y come gli altri
 		var daRit = [];
-		daRit.push({j:j-2,k:k+1});
-		daRit.push({j:j-2,k:k-1});
-		daRit.push({j:j-1,k:k+2});
-		daRit.push({j:j-1,k:k-2});
-		daRit.push({j:j+2,k:k+1});
-		daRit.push({j:j+2,k:k-1});
-		daRit.push({j:j+1,k:k+2});
-		daRit.push({j:j+1,k:k-2});
+		if(this.colore) { // nero 
+			if(s.arrNeri.filter( z => z.x == j-2 && z.y == k+1 ).length == 0) {
+				if(s.arrBian.filter( z => z.x == j-2 && z.y == k+1 ).length == 0) daRit.push({j:j-2,k:k+1});
+				// else this.mangiabili.push
+			}
+			if(s.arrNeri.filter( z => z.x == j-2 && z.y == k-1 ).length == 0) {
+				if(s.arrBian.filter( z => z.x == j-2 && z.y == k-1 ).length == 0) daRit.push({j:j-2,k:k-1});
+			}
+			if(s.arrNeri.filter( z => z.x == j-1 && z.y == k+2 ).length == 0) {
+				if(s.arrBian.filter( z => z.x == j-1 && z.y == k+2 ).length == 0) daRit.push({j:j-1,k:k+2});
+			}
+			if(s.arrNeri.filter( z => z.x == j-1 && z.y == k-2 ).length == 0) {
+				if(s.arrBian.filter( z => z.x == j-1 && z.y == k-2 ).length == 0) daRit.push({j:j-1,k:k-2});
+			}
+			if(s.arrNeri.filter( z => z.x == j+2 && z.y == k+1 ).length == 0) {
+				if(s.arrBian.filter( z => z.x == j+2 && z.y == k+1 ).length == 0) daRit.push({j:j+2,k:k+1});
+			}
+			if(s.arrNeri.filter( z => z.x == j+2 && z.y == k-1 ).length == 0) {
+				if(s.arrBian.filter( z => z.x == j+2 && z.y == k-1 ).length == 0) daRit.push({j:j+2,k:k-1});
+			}
+			if(s.arrNeri.filter( z => z.x == j+1 && z.y == k+2 ).length == 0) {
+				if(s.arrBian.filter( z => z.x == j+1 && z.y == k+2 ).length == 0) daRit.push({j:j+1,k:k+2});
+			}
+			if(s.arrNeri.filter( z => z.x == j+1 && z.y == k-2 ).length == 0) {
+				if(s.arrBian.filter( z => z.x == j+1 && z.y == k-2 ).length == 0) daRit.push({j:j+1,k:k-2});
+			}
+		}
+		else { // bianco
+			if(s.arrBian.filter( z => z.x == j-2 && z.y == k+1 ).length == 0) {
+				if(s.arrNeri.filter( z => z.x == j-2 && z.y == k+1 ).length == 0) daRit.push({j:j-2,k:k+1});
+				// else this.mangiabili.push
+			}
+			if(s.arrBian.filter( z => z.x == j-2 && z.y == k-1 ).length == 0) {
+				if(s.arrNeri.filter( z => z.x == j-2 && z.y == k-1 ).length == 0) daRit.push({j:j-2,k:k-1});
+			}
+			if(s.arrBian.filter( z => z.x == j-1 && z.y == k+2 ).length == 0) {
+				if(s.arrNeri.filter( z => z.x == j-1 && z.y == k+2 ).length == 0) daRit.push({j:j-1,k:k+2});
+			}
+			if(s.arrBian.filter( z => z.x == j-1 && z.y == k-2 ).length == 0) {
+				if(s.arrNeri.filter( z => z.x == j-1 && z.y == k-2 ).length == 0) daRit.push({j:j-1,k:k-2});
+			}
+			if(s.arrBian.filter( z => z.x == j+2 && z.y == k+1 ).length == 0) {
+				if(s.arrNeri.filter( z => z.x == j+2 && z.y == k+1 ).length == 0) daRit.push({j:j+2,k:k+1});
+			}
+			if(s.arrBian.filter( z => z.x == j+2 && z.y == k-1 ).length == 0) {
+				if(s.arrNeri.filter( z => z.x == j+2 && z.y == k-1 ).length == 0) daRit.push({j:j+2,k:k-1});
+			}
+			if(s.arrBian.filter( z => z.x == j+1 && z.y == k+2 ).length == 0) {
+				if(s.arrNeri.filter( z => z.x == j+1 && z.y == k+2 ).length == 0) daRit.push({j:j+1,k:k+2});
+			}
+			if(s.arrBian.filter( z => z.x == j+1 && z.y == k-2 ).length == 0) {
+				if(s.arrNeri.filter( z => z.x == j+1 && z.y == k-2 ).length == 0) daRit.push({j:j+1,k:k-2});
+			}
+
+			// if(s.arrBian.filter( z => z.j == j-2 && z.k == k+1 ).length == 0) {
+			// 	if(s.arrNeri.filter( z => z.j == j-2 && z.k == k+1 ).length == 0) daRit.push({j:j-2,k:k+1});
+			// 	// else this.mangiabili.push
+			// }
+			// if(s.arrBian.filter( z => (z.j == j-2) && (z.k == k-1) ).length == 0) daRit.push({j:j-2,k:k-1});
+			// if(s.arrBian.filter( z => z.j == j-1 && z.k == k+2 ).length == 0) daRit.push({j:j-1,k:k+2});
+			// if(s.arrBian.filter( z => z.j == j-1 && z.k == k-2 ).length == 0) daRit.push({j:j-1,k:k-2});
+
+			// if(s.arrBian.filter( z => z.j == j+2 && z.k == k+1 ).length == 0) daRit.push({j:j+2,k:k+1});
+			// if(s.arrBian.filter( z => z.j == j+2 && z.k == k-1 ).length == 0) daRit.push({j:j+2,k:k-1});
+			// if(s.arrBian.filter( z => z.j == j+1 && z.k == k+2 ).length == 0) daRit.push({j:j+1,k:k+2});
+			// if(s.arrBian.filter( z => z.j == j+1 && z.k == k-2 ).length == 0) daRit.push({j:j+1,k:k-2});
+
+		}
 		return daRit;
 	}
 	movTorre(x,y) {

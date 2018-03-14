@@ -17,14 +17,14 @@ function setup() {
 	// di usare s. che però ancora non esiste se constructor non è consluso
 	// spero di trovare una soluzione più carina prima o poi 
 
-	ia = new ChessIA();
+	ia = new ChessIA(1,1,1);
 
 }
 
 draw = function() {
 
 	background(0);
-	frameRate(5);
+	frameRate(0.5);
 
 	ia.gioca();
 	s.mostra();
