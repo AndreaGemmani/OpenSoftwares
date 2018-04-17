@@ -13,13 +13,13 @@ percorso i quadratini vengono contrassegnati di rosso. Ad ogni passaggio su una 
 (scala di blu).
 
 #### Valori:
--0.001 quadrati fuori dai bordi, per non scegliere mai di uscire
-0 muri (neri)
-0.1 vicolo cieco (rosso)
-0.15 - 0.85 strada percorsa da 1 a 15 volte (scala di blu)
-0.9 quadratini percorribili non visitati (bianchi)
-1 arrivo (verde)
-(La partenza inizia con un valore di 0.15)
+- -0.001 quadrati fuori dai bordi, per non scegliere mai di uscire
+- 0 muri (neri)
+- 0.1 vicolo cieco (rosso)
+- 0.15 - 0.85 strada percorsa da 1 a 15 volte (scala di blu)
+- 0.9 quadratini percorribili non visitati (bianchi)
+- 1 arrivo (verde)
+- (La partenza inizia con un valore di 0.15)
 
 ### ToDo:
 - resizability in base alle dimensioni dello schermo (per mobile)
