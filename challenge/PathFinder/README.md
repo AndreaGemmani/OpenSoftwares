@@ -12,6 +12,8 @@ L'algoritmo da un valore ad ogni quadratino che va 0 per i muri a 1 per il quadr
 percorso i quadratini vengono contrassegnati di rosso. Ad ogni passaggio su una strada già battuta il colore si scurisce 
 (scala di blu).
 
+L'algoritmo preferisce andare, in ordine, ad Est - Sud - Ovest - Nord, in quanto l'arrivo si trova ad ESE della partenza.  
+
 #### Valori:
 - -0.001 quadrati fuori dai bordi, per non scegliere mai di uscire
 - 0 muri (neri)
