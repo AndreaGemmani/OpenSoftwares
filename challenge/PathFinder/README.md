@@ -1,6 +1,6 @@
 # PathFinder
 
-Labirinto 50x30, 30% possibilità che un quadrato sia un muro, limite fps non aggiunto
+Labirinto 60x40, 33% possibilità che un quadrato sia un muro, limite fps non aggiunto
 
 ## How To:
 - scaricare librerie p5, sketch.js e index.html
