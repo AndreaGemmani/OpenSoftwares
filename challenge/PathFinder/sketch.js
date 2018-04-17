@@ -54,7 +54,7 @@ function setup() {
 			labirinto[i][k] = (random(1) > perc) ? 0.9 : 0;
 		}
 	}
-	labirinto[m][n] = 0.15; // partenza
+	labirinto[m][n] = 0.1; // partenza che va subito a 0.05
 	labirinto[Y-1][X-1] = 1; // arrivo
 
 }
@@ -99,6 +99,7 @@ draw = function() {
 		for(let k = 0; k < X; k++) {
 			if(labirinto[i][k] == 0) fill(0); // muro (nero)
 			if(labirinto[i][k] == 0.1) fill(255,0,0); // vicolo cieco (rosso)
+			if(labirinto[i][k] == 0.05) fill(180,0,180); // partenza dopo primo passo (viola)
 			if(labirinto[i][k] > 0.1 && labirinto[i][k] < 0.9) fill(0,0,255*( labirinto[i][k])) ; // passaggio (scala blu)
 			if(labirinto[i][k] == 0.9) fill(255); // libero (bianco)
 			if(labirinto[i][k] == 1) fill(0,255,0); // arrivo (verde)
@@ -125,6 +126,7 @@ draw = function() {
 
 var trovaStrada = function() {
 	labirinto[m][n] -= 0.05;
+	labirinto[m][n] = round(labirinto[m][n] *1000)/1000;
 	return compara(m,n);
 }
 
