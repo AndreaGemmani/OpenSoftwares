@@ -21,7 +21,7 @@ L'algoritmo preferisce andare, in ordine, ad Est - Sud - Ovest - Nord, in quanto
 - 0.15 - 0.85 strada percorsa da 1 a 15 volte (scala di blu)
 - 0.9 quadratini percorribili non visitati (bianchi)
 - 1 arrivo (verde)
-- (La partenza inizia con un valore di 0.15)
+- (La partenza inizia con un valore di 0.72 ed è viola)
 
 ### ToDo:
 - resizability in base alle dimensioni dello schermo (per mobile)
