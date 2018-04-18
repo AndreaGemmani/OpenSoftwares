@@ -11,6 +11,9 @@
 - se non dovesse funzionare ancora controllare di aver scaricato tutti i file senza averli rinominati
 - aprire la console errori o consore javscript (o console programmatori o nomi simili) del browser
 
+### Lincenza d'uso:
+- tutti i file (tranne le librerie p5, e dove diversamente dichiarato) sono regolati da MIT licence anche dove non esplicitamente dichiarato, quindi di libera modifica ed uso
+
 ## ENG
 ### Hot to:
 - download p5.js, p5.dom.js e p5.sound.js from libraries folder an save on a folder named "libraries" on your desktop
@@ -22,3 +25,6 @@
 - check that all files are dowloaded and not renamed
 - try opening debug console or javascript console inside the blank browser's page
 - contact me or just stack overflow ;)
+
+### Licence:
+All file are suposed to be under MIT license (except from p5 libraries and where differently specified), so fruible as stated in the licence
