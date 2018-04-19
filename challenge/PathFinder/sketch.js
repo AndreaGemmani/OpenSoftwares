@@ -57,6 +57,7 @@ var dirPref, dirSec;
 
 var trovato = false;
 var nMosse = 0;
+var millisStart = 0;
 var nSec = 0;
 var fps = 0;
 
@@ -90,6 +91,9 @@ randomMappa = function() {
 }
 
 riparti = function() {
+	nMosse = 0;
+	millisStart = millis();
+
 	Xstart = 0;
 	Ystart = 0;
 	m = 0;
@@ -108,6 +112,8 @@ riparti = function() {
 }
 
 azzera = function() {
+	nMosse = 0;
+	millisStart = millis();
 	for(let i = 0; i < Y; i++) {
 		for(let k = 0; k < X; k++) {
 			switch(labirinto[i][k]) {
@@ -247,9 +253,9 @@ function touchStarted() {
 }
 
 var trovaStrada = function() {
-	nMosse++;
-	nSec = round(millis()/1000);
+	nSec = round((millis()-millisStart)/1000);
 	fps = round(frameRate());
+	nMosse++;
 	if(labirinto[m][n] > 0.1 && labirinto[m][n] <= 0.9) labirinto[m][n] -= 0.05;
 	labirinto[m][n] = round(labirinto[m][n] *1000)/1000; // arrotondo valore per evitare bit error
 	return compara(m,n);
