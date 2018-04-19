@@ -3,7 +3,7 @@
 Labirinto 60x40, 35% possibilità che un quadrato sia un muro, limite fps non aggiunto
 
 ## How To:
-- scaricare librerie p5, sketch.js e index.html
+- scaricare [librerie p5](https://github.com/Gimmmy97/prova-prova/tree/master/challenge/librerie%20p5), sketch.js e index.html
 - double click su index.html per aprire il programma nel browser 
 
 ### About:
