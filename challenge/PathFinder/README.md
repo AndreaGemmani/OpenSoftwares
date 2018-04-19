@@ -26,6 +26,13 @@ Il bersaglio viene creato in un punto casuale del labirinto ogni volta che la pa
 - 1 arrivo (verde)
 - (La partenza inizia con un valore di circa 0.85-0.9 ed è viola, in realtà per il momento il colore che assume dipende dalle caselle che si trova attorno e può anche diventare subito un vicolo cieco (rosso))
 
+### Pulsanti (v3.0):
+Aggiunti tre pulsanti: Nuovo, Riprova, opzione vicoli ciechi (fine partita)
+- Nuovo: viene creato un nuovo labirinto delle stesse dimensioni del precedente azzerando tutti i parametri precedenti
+- Riprova: viene riutilizzato lo stesso labirinto e l'algoritmo cerca una strada (al momento percorre la stessa visto che la decisione fra le scelte possibili rimane uguale)
+- Vicoli Ciechi (switch): inizia su ON (sfondo verde) e in questo caso se il PathFinder si dovesse trovare fra 4 vicoli ciechi la ricerca si conclude con una sconfitta, tuttavia a volte l'algoritmo può ritrovarsi chiuso in un punto nonostante una strada reale esista (solitamente passando da molto lontano da dove si trova il bersaglio),
+se su OFF (sfondo rosso) il PathFinder continua a cercare strade alternative finchè lo switch non viene riportato su ON, senza curarsi della presenza dei vicoli ciechi sul suo cammino
+
 ### ToDo:
 - resizability in base alle dimensioni dello schermo (per mobile)
 - rendere il numero di righe e colonne, le mosse al secondo e la percentuale di muri creati modificabile
