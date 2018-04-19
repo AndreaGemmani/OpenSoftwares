@@ -49,10 +49,19 @@ var quale;
 var sommina = 0;
 
 var Xtarg,Ytarg;
-var Xstart,Ystart = 0;
+var Xstart = 0;
+var Ystart = 0;
 var dx,dy;
 var Est,Sud,Ovest,Nord;
 var dirPref, dirSec;
+
+var trovato = false;
+var nMosse = 0;
+var nSec = 0;
+var fps = 0;
+
+var res = 0;
+var VCallowed = true;
 
 
 function setup() {
@@ -65,6 +74,7 @@ function setup() {
 	dim = min(round(800/X),round(600/Y)); // dimensioni schermo Mac attuali 
 	createCanvas((X*1.2)*dim, Y*dim);
 
+	labirinto[Ystart][Xstart] = 0.77; // partenza che va subito a 0.72
 	randomTarget();
 
 }
@@ -79,8 +89,46 @@ randomMappa = function() {
 
 }
 
+riparti = function() {
+	Xstart = 0;
+	Ystart = 0;
+	m = 0;
+	n = 0;
+	// m = Xstart;
+	// n = Ystart;
+	randomMappa();
+	dim = min(round(800/X),round(600/Y));
+	createCanvas((X*1.2)*dim, Y*dim); // non so se posso, spero
+
+	labirinto[Ystart][Xstart] = 0.77; // partenza che va subito a 0.72
+
+	randomTarget();
+
+	trovato = false;
+}
+
+azzera = function() {
+	for(let i = 0; i < Y; i++) {
+		for(let k = 0; k < X; k++) {
+			switch(labirinto[i][k]) {
+				case 0: break; // muro rimane
+				case 0.9: break; // libero rimane
+				default: labirinto[i][k] = 0.9; // ritorna libero
+			}
+		}
+	}
+
+	labirinto[Ystart][Xstart] = 0.77; // partenza che va subito a 0.72
+	labirinto[Ytarg][Xtarg] = 1; // arrivo
+
+	m = Ystart;
+	n = Xstart;
+
+	trovato = false;
+
+}
+
 randomTarget = function() {
-	labirinto[m][n] = 0.77; // partenza che va subito a 0.13
 	Xtarg = round(random(X-1));
 	Ytarg = round(random(Y-1));
 	labirinto[Ytarg][Xtarg] = 1; // arrivo
@@ -92,32 +140,34 @@ draw = function() {
 	
 	background(230);
 	// frameRate(5);
-	// frameRate(15);
+	frameRate(15);
 
 	noStroke();
 	rectMode(CENTER);
 
-	// let risultato = trovaStrada();
-
 	push();
 		textSize(width/80);
 		textAlign(RIGHT,CENTER);
-		switch( trovaStrada() ) {
+		if( ! trovato) res = trovaStrada(); // cerco qua
+		switch( res ) {
 			case 1:
 			case true:
 				fill(0,200,0);
 				text("Vittoria!",width-dim/4,height*11/20);
-				noLoop();
+				// noLoop();
+				trovato = true;
 				break;
 			case -1:
 				fill(200,0,0);
 				text("Impossibile!",width-dim/4,height*11/20);
-				noLoop();
+				// noLoop();
+				trovato = true; // non proprio ma poi rimedierò
 				break;
 			case 0:
 			case false:
 				fill(120);
-				text("In corso...",width-dim/4,height*11/20);
+				if(VCallowed) text("In corso...",width-dim/4,height*11/20);
+				else text("(Non si perde!)",width-dim/4,height*11/20);
 				break;
 			default: break;
 		}
@@ -143,18 +193,65 @@ draw = function() {
 	textSize(width/80);
 	fill(0);
 	textAlign(RIGHT,CENTER);
-	text(round(millis()/1000) + " s",width-dim/4,height/20);
-	text(round(frameCount) + " mov",width-dim/4,height*3/20);
-	text(round(frameRate()) + " fps",width-dim/4,height*5/20);
+	text(nSec + " s",width-dim/4,height/20);
+	text(nMosse + " mov",width-dim/4,height*3/20);
+	text(fps + " fps",width-dim/4,height*5/20);
 	text(X + " / " + Y,width-dim/4,height*7/20);
 	text(perc*100 + "% muri",width-dim/4,height*9/20);
+
+	fill(40);
+	rectMode(CENTER);
+	rect(width/40*37,height*13/20,dim*9,dim*3);
+	textAlign(CENTER,CENTER);
+	fill(255);
+	text("Nuovo",width/40*37,height*13/20);
+
+	fill(60);
+	rect(width/40*37,height*15/20,dim*9,dim*3);
+	fill(255);
+	text("Riprova",width/40*37,height*15/20);
+
+	if(VCallowed) {
+		fill(0,100,0);
+		rect(width/40*37,height*17/20,dim*9,dim*3);
+		fill(0);
+		text("Vicoli ciechi",width/40*37,height*17/20);
+	}
+	else {
+		fill(100,0,0);
+		rect(width/40*37,height*17/20,dim*9,dim*3);
+		fill(0);
+		text("No V.C.",width/40*37,height*17/20);
+	}
 	pop();
 
 }
 
+function touchStarted() {
+	// console.log("ehhhehe");
+	if( mouseX > width/40*37 - dim*4.5 &&
+		mouseX < width/40*37 + dim*4.5 &&
+		mouseY > height*13/20 - dim*1.5 &&
+		mouseY < height*13/20 + dim*1.5 ) riparti();
+	if( mouseX > width/40*37 - dim*4.5 &&
+		mouseX < width/40*37 + dim*4.5 &&
+		mouseY > height*15/20 - dim*1.5 &&
+		mouseY < height*15/20 + dim*1.5 ) azzera();
+	if( mouseX > width/40*37 - dim*4.5 &&
+		mouseX < width/40*37 + dim*4.5 &&
+		mouseY > height*17/20 - dim*1.5 &&
+		mouseY < height*17/20 + dim*1.5 ) VCallowed = ! VCallowed;
+
+	return true;
+	// return false; // boh
+}
+
 var trovaStrada = function() {
-	labirinto[m][n] -= 0.05;
-	labirinto[m][n] = round(labirinto[m][n] *1000)/1000;
+	nMosse++;
+	nSec = round(millis()/1000);
+	fps = round(frameRate());
+	if(labirinto[m][n] > 0.1 && labirinto[m][n] <= 0.9) labirinto[m][n] -= 0.05;
+	labirinto[m][n] = round(labirinto[m][n] *1000)/1000; // arrotondo valore per evitare bit error
 	return compara(m,n);
 }
 
@@ -297,7 +394,10 @@ var compara = function(j,k) {
 	sommina = round(sommina*100)/100;
 	// if(sommina <= 0.8) labirinto[m][n] = 0.1; // vicolo cieco da vicoli ciechi, 0.8 labile
 	if(sommina <= 0.95) labirinto[m][n] = 0.1; // vicolo cieco da vicoli ciechi, 0.95 preciso, maybe bug
-	if(sommina <= 0.3) return (-1); // forse da mettere 0.4 ma non sono sicuro, potrebbe buggare
+	if(VCallowed) {
+		if(sommina <= 0.3) return (-1);
+	 // forse da mettere 0.4 ma non sono sicuro, potrebbe buggare
+	}
 	quale = arrAttorno.indexOf(massimino);
 	// quale = arrAttorno.indexOf(max(arrAttorno));
 
