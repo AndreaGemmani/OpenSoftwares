@@ -2,7 +2,7 @@
 
 ## ITA
 ### Hot to:
-- scaricare le librerie p5.js, p5.dom.js e p5.sound.js in una cartella da mettere sul desktop rinominata "libraries"
+- scaricare le [librerie p5.js, p5.dom.js e p5.sound.js](https://github.com/Gimmmy97/prova-prova/tree/master/challenge/librerie%20p5) in una cartella da mettere sul desktop rinominata "libraries"
 - scaricare tutti i file della cartella desiderata e salvarli in una singola cartella (indirizzo e nome della cartella non sono importanti) senza modificarne i nomi 
 - aprire il file .html salvato, dovrebbe aprirvi il programma attraverso il vostro browser predefinito
 
@@ -16,7 +16,7 @@
 
 ## ENG
 ### Hot to:
-- download p5.js, p5.dom.js e p5.sound.js from libraries folder an save on a folder named "libraries" on your desktop
+- download [p5.js, p5.dom.js e p5.sound.js from libraries folder](https://github.com/Gimmmy97/prova-prova/tree/master/challenge/librerie%20p5) an save on a folder named "libraries" on your desktop
 - download all files (except README.md) from choosen folder and save them in a new folder 
 - open dowloaded .html file, it should open the program in a blank page of your favourite browser
 
