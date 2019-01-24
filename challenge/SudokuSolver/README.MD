@@ -1,6 +1,6 @@
-#SUDOKU SOLVER
+# SUDOKU SOLVER
 
-##ITA
+## ITA
 
 ### Come Funziona:
 
