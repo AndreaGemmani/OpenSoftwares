@@ -99,7 +99,7 @@ var Funz = function() {
 }
 
 
-// scrivo su console la stringa che desidero che sarebbe un .csv hard-coded che poi copio e incollo in un file vuoto e salvo come .csv  
+// scrivo su console la stringa che desidero (che sarebbe un .csv hard-coded) che poi copio e incollo in un file vuoto e salvo come .csv  
 var consoleMe = function() {
 	for(let i = 0; i < arrDesiderato.length; i++) {
 		for(let k = 0; k < arrDesiderato[i].length; k++) {
